@@ -1,0 +1,23 @@
+---
+title: "PE-PSet4"
+output: pdf_document
+author: Drazzel Feliu - 12174100
+---
+
+```{r setup, results='hide', warning=FALSE, message=FALSE,include=FALSE}
+# Clear Workspace
+rm(list=ls())
+
+# Load Libraries
+library(haven)
+library(tidyverse)
+library(magrittr)
+library(Synth)
+```
+
+For this assignment, you will use the paper “Soda Taxes and the Prices of Sodas and Other Drinks: Evidence from Mexico.” Provide a write-up where you answer the questions below, selectively cutting and pasting output where needed. Be concise in your write-up; excess wordiness will be penalized. Also, submit a log file that includes commands and results for your entire analysis. Remember that your grade mostly comes from the written report—your code or log is a “replication” file that shows you did the work. Imagine that the grader won’t look at your code until they’re done reading the write up, and that’s how you should type it up. If you put it all together in a R notebook, knit it to .pdf or .html before submission.
+
+The assignment will implement the synthetic control method on the dataset soda_tax_long_data.dta, which you can find on Canvas. If you don’t speak Spanish, you will also want to make use of prdname translations.xlsx.
+
+Due to the advanced nature of this method, implementations are not standardized across platforms. Thus, we strongly recommend using Stata for this assignment, along with the package synth runner. Follow the instructions for installation on the author’s Github (https://github.com/bquistorff/synth_runner). If you decide to do this using R, expect little to no support on using any of the implementations available on CRAN. You can also expect to write lots of loops to carry out the permutation inference.
+
