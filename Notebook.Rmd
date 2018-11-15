@@ -35,6 +35,8 @@ How many products are in the data? Which value of product corresponds to regular
 length(unique(data$product))
 
 data %>% filter(.,prdname=="regsodasndx") %>% summarize(sum=unique(product))
+
+data %>% filter(.,prdname=="regsodasndx") %>% summarize(n_distinct(date))
 ```
 
 # QUESTION 2:
