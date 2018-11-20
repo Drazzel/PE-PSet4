@@ -34,7 +34,7 @@ How many products are in the data? Which value of product corresponds to regular
 ```{r}
 length(unique(data$product))
 
-data %>% filter(.,prdname=="regsodasndx") %>% summarize(sum=unique(product))
+data %>% filter(.,prdname=="regsodasndx") %>% summarize(n_distinct(product))
 
 data %>% filter(.,prdname=="regsodasndx") %>% summarize(n_distinct(date))
 ```
@@ -44,6 +44,11 @@ data %>% filter(.,prdname=="regsodasndx") %>% summarize(n_distinct(date))
 Plot the real price (rprice) of regular sodas. Does it look like the corresponding series in Figure 2 of Grogger (2017)?
 
 ## ANSWER:
+
+```{r}
+#NOT JUST SODAS FROM HERE ON OUT, MUST ALSO USE the potential substitutes listed on page 482.
+#Specifically: Drinks with added sugar, diet sodas, bottled water, pure fruit juice, and milk.
+```
 
 # QUESTION 3:
 
