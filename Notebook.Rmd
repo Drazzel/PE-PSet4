@@ -12,6 +12,7 @@ rm(list=ls())
 library(haven)
 library(tidyverse)
 library(magrittr)
+library(lubridate)
 library(Synth)
 ```
 
@@ -21,6 +22,25 @@ The assignment will implement the synthetic control method on the dataset soda_t
 
 ```{r}
 data <- read_dta("soda_tax_long_data.dta")
+
+datainfo <- data.frame(variable=colnames(data),
+              class=sapply(data, class))
+
+# According to the paper, "All real price indexes equal 100 in December 2013. Numbers in parentheses are standard deviations" (pg 486). Suggests that the date variable when rprice = 100 must be December 2013. Using this, knowing that the date is variable is sequenced by the month, we can use this to count from this central point and assign date labels as factors.
+
+range(data$date)
+length(unique(data$date))
+
+data$date <- as.factor(data$date)
+
+data %>% filter(., rprice==100) %>% group_by(date)
+# December 2013 = 647
+
+data %>% filter(., rprice<100) %>% group_by(date, product)
+
+seq(612,665,by=1)[36]
+seq.Date(as.Date("2010/1/1"),as.Date("2015/4/1"),by="month") %>% str_sub(.,1,7)
+
 ```
 
 Due to the advanced nature of this method, implementations are not standardized across platforms. Thus, we strongly recommend using Stata for this assignment, along with the package synth runner. Follow the instructions for installation on the author’s Github (https://github.com/bquistorff/synth_runner). If you decide to do this using R, expect little to no support on using any of the implementations available on CRAN. You can also expect to write lots of loops to carry out the permutation inference.
@@ -46,8 +66,11 @@ Plot the real price (rprice) of regular sodas. Does it look like the correspondi
 ## ANSWER:
 
 ```{r}
-#NOT JUST SODAS FROM HERE ON OUT, MUST ALSO USE the potential substitutes listed on page 482.
-#Specifically: Drinks with added sugar, diet sodas, bottled water, pure fruit juice, and milk.
+data$treatment <- ifelse(data$date>= 648, 1, 0)
+
+data %>% filter(.,prdname=="regsodasndx") %>% group_by(treatment) %>% summarise("Real Price"=mean(rprice))
+
+data %>% filter(.,prdname=="regsodasndx") %>% ggplot(aes(date,rprice)) + geom_line() + theme_classic() + geom_vline(xintercept = 648, size = 1, linetype = "dashed" ,col = "pink") + ylab("Price Index") + xlab("Date") + ggtitle("Real Price of Sodas") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 # QUESTION 3:
