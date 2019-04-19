@@ -1,14 +1,3 @@
----
-title: "An Exercise in Creating Useful GeoData"
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
-author: Drazzel Feliu
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
----
 ```{r, include=FALSE}
 rm(list=ls())
 ```
